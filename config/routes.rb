@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  get '/presist', to: 'tokens#persist'
+
+  resources :tokens, only: [:create]
  
   
   resources :tasks
