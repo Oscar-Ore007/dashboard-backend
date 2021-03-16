@@ -1,4 +1,8 @@
 class ProjectSerializer < ActiveModel::Serializer
-  attributes :id, :name
-  has_one :user 
-end
+  include FastJsonapi::ObjectSerializer
+  attributes :name, :user_id
+
+  attributes :user do |project|
+    project.user.name
+  end
+end 

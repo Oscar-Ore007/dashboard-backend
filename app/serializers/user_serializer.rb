@@ -1,5 +1,6 @@
 class UserSerializer < ActiveModel::Serializer 
-    attributes :id, :name, :username, :email, :password
+    include FastJsonapi::ObjectSerializer 
+    attributes :id, :name, :username, :email
 
     attribute :projects do |user|
         user.projects

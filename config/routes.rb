@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   resources :tokens, only: [:create]
  
   
-  resources :tasks
-  resources :lists
+  resources :users 
   resources :projects
-  resources :users
+  resources :list 
+  resources :tasks
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
