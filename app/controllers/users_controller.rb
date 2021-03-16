@@ -33,7 +33,7 @@ class UsersController < ApplicationController
       if user.valid?
         render json: auth_response_json(@user), status: :created
       else
-        render json: { error: @user.errors.full_messages }, status: :not_acceptable
+        render json: { errors: @user.errors.full_messages }, status: :not_acceptable
       end
     end
 
