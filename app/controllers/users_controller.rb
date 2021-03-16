@@ -15,9 +15,13 @@ class UsersController < ApplicationController
     end 
 
     def show 
-        @user = User.find(params[:id])
-
-        render json: @user 
+        user_id = params[:id]
+        if authorized?(user_id)
+            user = User.find(user_id)
+            render json: user 
+        else 
+            notify_unauthorized_user
+        end 
     end 
 
 
@@ -27,7 +31,7 @@ class UsersController < ApplicationController
             
         @user = User.create(@user_params)
       if user.valid?
-        render json: { user: UserSerializer.new(@user) }, status: :created
+        render json: auth_response_json(@user), status: :created
       else
         render json: { error: @user.errors.full_messages }, status: :not_acceptable
       end
@@ -43,7 +47,7 @@ class UsersController < ApplicationController
   
     private
     def get_user_params
-        params.permit(:name, :username)
-        @user_params = { name: params[:name], username: params[:username]}
+        params.permit(:name, :username,:email, :password)
+        @user_params = { name: params[:name], username: params[:username], email:params[:email], password: params[:password]}
     end
   end
