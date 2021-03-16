@@ -7,14 +7,14 @@ class ListsController < ApplicationController
 
     def show 
         @list = List.find(params[:id])
-        render json: @list 
+        render json: ListSerializer.new(@list)
     end 
 
     def create 
         @list = List.create(list_params)
 
         if @list.valid?
-            render json: @list 
+            render json: ListSerializer.new(@list)
         else 
             render json: { errors: @list.errors.full_messages }, status: :not_acceptable
         end

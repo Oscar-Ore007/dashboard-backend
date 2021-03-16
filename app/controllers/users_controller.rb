@@ -11,14 +11,14 @@ class UsersController < ApplicationController
 
     def index 
         @users = User.all
-        render json: @users 
+        render json: UserSerializer.new(@users)
     end 
 
     def show 
         user_id = params[:id]
         if authorized?(user_id)
             user = User.find(user_id)
-            render json: user 
+            render json: UserSerializer.new(user)
         else 
             notify_unauthorized_user
         end 
